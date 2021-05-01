@@ -184,7 +184,7 @@ class Ui_MainWindow(object):
         self.temp_mea_once.setText(_translate("MainWindow", "单次测量"))
         self.temp_typein.setText(_translate("MainWindow", "手动输入"))
         self.temp_mea_more.setText(_translate("MainWindow", "多次测量"))
-        self.label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:18pt; font-weight:600;\">谐振腔场分布测量程序 alpha2.0</span></p></body></html>"))
+        self.label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:18pt; font-weight:600;\">谐振腔场分布测量程序 beta1.0</span></p></body></html>"))
         self.start_button.setText(_translate("MainWindow", "开始"))
         self.stop_button.setText(_translate("MainWindow", "停止"))
         self.measurement_stratety.setItemText(0, _translate("MainWindow", "轴向场分布测量"))

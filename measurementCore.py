@@ -1,6 +1,7 @@
 """
 run!!!
 """
+import random
 import time
 import os
 import numpy as np
@@ -11,15 +12,15 @@ import serial
 class Element(object):
     def __init__(self):
         self.position = None
-        self.frequency = None
+        self.measured_f = None
+        self.operation_f = None
+        self.designed_vacuum_f = None
         self.temperature = None
         self.humidity = None
-        self.field = None
+        self.delta_f = None
 
-    def __str__(self):
-        text = str(self.position) + '    ' + str(self.frequency) + '    ' + str(self.temperature) + '    '
-        text += str(self.humidity) + '    ' + str(self.field) + '\n'
-        return text
+    def vacuum_frequency(self):
+        pass
 
 
 class Measurement(object):
@@ -32,37 +33,38 @@ class Measurement(object):
         self.f0 = None
         self.f_r = None
         self.temperature = None
+        self.work_temperature = 24
+        self.work_f = 2856e6
         self.humidity = None
-        self.access_sensor = None
+        self.access_sensor_times = None
         self.elements = []
         self.sensor = None
         self.motor = None
+        self.network_analyzer = None
 
     def cal_cavity_frequency(self):
         """calculate real cavity resonance frequency according to design (vacuum) frequency"""
 
-        if self.access_sensor >= 1:
+        if self.access_sensor_times >= 1:
             [self.temperature, self.humidity] = self.sensor.current_t_rh
         t_k = self.temperature + 273.15
-        pw = vapor_pressure(t_k)
-        pd = 760 - self.humidity * pw
+        pw = vapor_pressure(t_k) * self.humidity
+        pd = 760 - pw
         epsilon_r = 1 + 210e-6 * pd / t_k + 180e-6 * (1 + 3580 / t_k) * pw / t_k
-        partial_f_partial_t = 48 * self.f0 / 2856000
-        delta_f = partial_f_partial_t * (self.temperature - 20)
+        partial_f_partial_t = 48e3 * self.f0 / 2856e6
+        delta_f = partial_f_partial_t * (self.temperature - self.work_temperature)
         self.f_r = (self.f0 + delta_f) / np.sqrt(epsilon_r)
-        return self.f_r
+        return self.f_r / 1e6
 
     def run(self):
         """need to rewrite in child class"""
-        raise Exception('锟斤拷烫烫烫烫')
+        raise Exception(' ')
 
     def measure_frequency(self):
-        # todo: unfinished, connect to network analysis
-        return self.f0 * np.random.random(1)[0]
+        return self.network_analyzer.resonance_frequency()
 
-    def calculation(self, frequency):
-        # todo: unfinished, calculating normalized field
-        return frequency
+    def delta_f(self, measured_f):
+        return self.f_r - measured_f
 
     def save_data(self, path):
         local_time = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
@@ -72,9 +74,10 @@ class Measurement(object):
         file = open(file_path, 'w')
         file.write('& 测量时间：' + local_time)
         file.write(str(self))
-        file.write('& 位置 频率 温度 湿度 归一化场强')
+        file.write('& 位置 频率 真空频率 温度 湿度 归一化场强\n')
         for ele in self.elements:
-            file.write(str(ele))
+            file.write(f'{ele.position:.2f} {ele.measured_f:.6e} {ele.temperature:.2f} '
+                       f'{ele.humidity:.2f} {ele.delta_f:.6e}\n')
         file.close()
 
     def __str__(self):
@@ -82,48 +85,42 @@ class Measurement(object):
         text += ('\n&    腔体长度 = ' + str(self.len_total) + ' mm')
         text += ("\n&    运动步长 = " + str(self.len_step) + ' mm')
         text += ("\n&    等待时间 = " + str(self.time_step) + ' s')
-        text += ("\n&    真空频率 = " + str(self.f0) + 'MHz')
-        if self.access_sensor == 0 or self.access_sensor is None:
-            text += ("\n&    温度 = " + str(self.temperature) + '℃')
-            text += ("\n&    湿度 = " + str(self.humidity) + '%\n')
-        else:
-            text += "\n&    温湿度数据由传感器提供\n"
+        text += ("\n&    真空频率 = " + str(self.f0 / 1e6) + 'MHz')
+        text += ("\n&    温度 = " + str(self.temperature) + '℃')
+        text += ("\n&    湿度 = " + str(self.humidity * 100) + '%')
+        text += ("\n&    腔体频率 = " + str(self.f_r / 1e6) + 'MHz\n')
         return text
 
 
 class LongitudinalMeasurement(Measurement):
-    """measurement of longitudinal field distribution"""
+    """measurement of longitudinal delta_f distribution"""
 
     def run(self):
         current_position = 0
         new_ele = Element()
         time.sleep(self.time_step)
-        frequency = self.measure_frequency()
-        normalized_field = self.calculation(frequency)
+        new_ele.measured_f = self.measure_frequency()
+        new_ele.delta_f = self.delta_f(new_ele.measured_f)
         new_ele.position = current_position
-        new_ele.frequency = frequency
-        new_ele.field = normalized_field
-        if self.access_sensor == 2:
+        if self.access_sensor_times == 2:
             [self.temperature, self.humidity] = self.sensor.current_t_rh
         new_ele.temperature = self.temperature
         new_ele.humidity = self.humidity
         self.elements.append(copy.deepcopy(new_ele))
-        yield new_ele.position, new_ele.field
+        yield new_ele.position, new_ele.delta_f
         while abs(current_position) <= abs(self.len_total - self.len_step):
             self.motor.move_forward()
             current_position += self.len_step
             time.sleep(self.time_step)
-            frequency = self.measure_frequency()
-            normalized_field = self.calculation(frequency)
+            new_ele.measured_f = self.measure_frequency()
+            new_ele.delta_f = self.delta_f(new_ele.measured_f)
             new_ele.position = current_position
-            new_ele.frequency = frequency
-            new_ele.field = normalized_field
-            if self.access_sensor == 2:
+            if self.access_sensor_times == 2:
                 [self.temperature, self.humidity] = self.sensor.current_t_rh
             new_ele.temperature = self.temperature
             new_ele.humidity = self.humidity
             self.elements.append(copy.deepcopy(new_ele))
-            yield new_ele.position, new_ele.field
+            yield new_ele.position, new_ele.delta_f
 
 
 class TestMeasurement(Measurement):
@@ -134,26 +131,29 @@ class TestMeasurement(Measurement):
         new_ele = Element()
         time.sleep(self.time_step)
         frequency = self.measure_frequency()
-        normalized_field = self.calculation(frequency)
+        normalized_field = self.delta_f(frequency)
         new_ele.position = current_position
-        new_ele.frequency = frequency
-        new_ele.field = normalized_field
+        new_ele.measured_f = frequency
+        new_ele.delta_f = normalized_field
         new_ele.temperature = self.temperature
         new_ele.humidity = self.humidity
         self.elements.append(copy.deepcopy(new_ele))
-        yield new_ele.position, new_ele.field
+        yield new_ele.position, new_ele.delta_f
         while abs(current_position) <= abs(self.len_total - self.len_step):
             current_position += self.len_step
             time.sleep(self.time_step)
             frequency = self.measure_frequency()
-            normalized_field = self.calculation(frequency)
+            normalized_field = self.delta_f(frequency)
             new_ele.position = current_position
-            new_ele.frequency = frequency
-            new_ele.field = normalized_field
+            new_ele.measured_f = frequency
+            new_ele.delta_f = normalized_field
             new_ele.temperature = self.temperature
             new_ele.humidity = self.humidity
             self.elements.append(copy.deepcopy(new_ele))
-            yield new_ele.position, new_ele.field
+            yield new_ele.position, new_ele.delta_f
+
+    def measure_frequency(self):
+        return self.f0 * random.random()
 
 
 class Sensor(object):
@@ -262,11 +262,48 @@ class StepMotor(object):
             raise Exception("step motor error: can't set distance")
 
 
+class NetworkAnalyzer(object):
+    """Agilent E5071C
+
+    the commands can be found on http://ena.support.keysight.com/e5071c/manuals/webhelp/eng/
+    """
+
+    def __init__(self, source):
+        self.na = source
+        self.initial_setting()
+
+    def initial_setting(self):
+        # self.na.write(':CALC1:TRAC1:FORM MLOG')  # set log mat format
+        # self.na.write(':CALC1:PAR1:DEF S11')  # set measurement to S11
+        self.na.write(':MMEM:LOAD "d:\ITC02-10MHZ2851.STA"')
+        self.na.write(':CALC1:MARK1 ON')
+        self.na.write(':CALC1:MARK1:FUNC:TYPE MIN')
+        data = self.na.query(':CALC1:MARK1:FUNC:TYPE?')
+        # set frequency range. center 2850MHz, span 0.50MHz
+        # self.na.write(':SENS1:FREQ:CENT 2856000000')
+        # self.na.write(':SENS1:FREQ:SPAN 50000000')
+        # self.na.write(':DISP:WIND1:TRAC1:Y:AUTO')
+        time.sleep(0.3)
+        # fr = int(self.resonance_frequency())
+        # self.na.write(':SENS1:FREQ:CENT ' + str(fr))
+        # self.na.write(':SENS1:FREQ:SPAN 5000000')
+        # self.na.write(':DISP:WIND1:TRAC1:Y:AUTO')
+        if data != 'MIN\n':
+            raise Exception('network analyzer communication error')
+
+    def resonance_frequency(self):
+        self.na.write(':CALC1:MARK1:FUNC:EXEC')
+        data = self.na.query_ascii_values(':CALC1:MARK1:DATA?')
+        frequency = data[2]
+        time.sleep(0.2)
+        return frequency
+
+
 def vapor_pressure(Kelven_temperature):
     """suitable for 0~50 Celsius
 
     DOI: 10. 13842/j.cnki.issn1671-8151.1996.03.020"""
     # todo: not so precise, maybe change to look-up table method
     lnp = 58.430772 - 6750.4344 / Kelven_temperature - 4.8668493 * np.log(Kelven_temperature)
-    p = np.exp(lnp)
+    p = np.exp(lnp) / 133.322368
     return p
