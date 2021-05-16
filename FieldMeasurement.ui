@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>584</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,87 +17,31 @@
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>70</y>
-      <width>711</width>
-      <height>131</height>
+      <x>30</x>
+      <y>100</y>
+      <width>747</width>
+      <height>81</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>温湿度数据</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="4">
+     <item row="2" column="4">
       <widget class="QLabel" name="label_3">
        <property name="text">
         <string>等待时间(s)</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="5">
+     <item row="2" column="5">
       <widget class="QLineEdit" name="time_step">
        <property name="maxLength">
         <number>15</number>
        </property>
       </widget>
      </item>
-     <item row="1" column="2">
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>温度(摄氏度)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>测量步长(mm)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="3">
-      <widget class="QLineEdit" name="length_step">
-       <property name="maxLength">
-        <number>15</number>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>腔体长度(mm)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3">
-      <widget class="QLineEdit" name="temperature">
+     <item row="2" column="3">
+      <widget class="QLineEdit" name="actual_frequency">
        <property name="readOnly">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="5">
-      <widget class="QLineEdit" name="humidity">
-       <property name="readOnly">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="total_length">
-       <property name="maxLength">
-        <number>15</number>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="4">
-      <widget class="QLabel" name="label_7">
-       <property name="text">
-        <string>湿度(%)</string>
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -118,31 +62,31 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="3">
-      <widget class="QLineEdit" name="actual_frequency">
-       <property name="readOnly">
-        <bool>true</bool>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>温湿度数据</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
+     <item row="0" column="1">
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="1" column="1">
-        <widget class="QRadioButton" name="temp_mea_once">
+        <widget class="QRadioButton" name="measure_t_once">
          <property name="text">
           <string>单次测量</string>
          </property>
         </widget>
        </item>
        <item row="1" column="3">
-        <widget class="QRadioButton" name="temp_typein">
+        <widget class="QRadioButton" name="typein_t">
          <property name="text">
           <string>手动输入</string>
          </property>
         </widget>
        </item>
        <item row="1" column="2">
-        <widget class="QRadioButton" name="temp_mea_more">
+        <widget class="QRadioButton" name="measure_t_repeatedly">
          <property name="text">
           <string>多次测量</string>
          </property>
@@ -150,38 +94,53 @@
        </item>
       </layout>
      </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;温度(℃)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QLineEdit" name="temperature">
+       <property name="readOnly">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="4">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;湿度(%)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="5">
+      <widget class="QLineEdit" name="humidity">
+       <property name="readOnly">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
     </layout>
-   </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>20</y>
-      <width>411</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;谐振腔场分布测量程序 alpha2.0&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
    </widget>
    <widget class="PlotWidget" name="graphicsView">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>250</y>
-      <width>441</width>
-      <height>291</height>
+      <y>230</y>
+      <width>461</width>
+      <height>301</height>
      </rect>
     </property>
    </widget>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>260</y>
-      <width>191</width>
-      <height>111</height>
+      <x>580</x>
+      <y>230</y>
+      <width>151</width>
+      <height>161</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -199,45 +158,32 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="process_data">
+       <property name="text">
+        <string>数据处理</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
    <widget class="QTextBrowser" name="run_information">
     <property name="geometry">
      <rect>
-      <x>510</x>
-      <y>380</y>
-      <width>251</width>
-      <height>151</height>
+      <x>520</x>
+      <y>410</y>
+      <width>261</width>
+      <height>121</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QComboBox" name="measurement_stratety">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>220</y>
-      <width>111</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <item>
-     <property name="text">
-      <string>轴向场分布测量</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>未完成</string>
-     </property>
-    </item>
    </widget>
    <widget class="QLabel" name="label_10">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>220</y>
+      <x>50</x>
+      <y>190</y>
       <width>71</width>
-      <height>16</height>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
@@ -247,9 +193,9 @@
    <widget class="QTextBrowser" name="save_directory">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>220</y>
-      <width>321</width>
+      <x>130</x>
+      <y>190</y>
+      <width>541</width>
       <height>21</height>
      </rect>
     </property>
@@ -257,14 +203,184 @@
    <widget class="QPushButton" name="change_directory">
     <property name="geometry">
      <rect>
-      <x>670</x>
-      <y>220</y>
+      <x>680</x>
+      <y>190</y>
       <width>75</width>
-      <height>23</height>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
      <string>重新选择</string>
+    </property>
+   </widget>
+   <widget class="QTabWidget" name="measurement_strategy">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>351</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="whatsThis">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;轴向&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="longitudinal">
+     <attribute name="title">
+      <string>轴向场分布测量</string>
+     </attribute>
+     <widget class="QLineEdit" name="total_length">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>10</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="maxLength">
+       <number>15</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>78</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>腔体长度(mm)</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>10</y>
+        <width>78</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>测量步长(mm)</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="length_step">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>10</y>
+        <width>61</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="maxLength">
+       <number>15</number>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="angular">
+     <attribute name="title">
+      <string>横向场分布测量</string>
+     </attribute>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>10</y>
+        <width>54</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>测量次数</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="num_of_mea">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>10</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>30</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>网分状态(选填)</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="NA_state">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>60</y>
+      <width>161</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="na_average_facotr">
+    <property name="geometry">
+     <rect>
+      <x>740</x>
+      <y>60</y>
+      <width>42</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_12">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>30</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>网分平均因子</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_13">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>30</y>
+      <width>54</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>多次测量</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="multi_measure">
+    <property name="geometry">
+     <rect>
+      <x>610</x>
+      <y>60</y>
+      <width>42</width>
+      <height>22</height>
+     </rect>
     </property>
    </widget>
   </widget>
@@ -281,6 +397,8 @@
     <property name="title">
      <string>文件</string>
     </property>
+    <addaction name="open_file"/>
+    <addaction name="save_file"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -332,29 +450,19 @@
     <string>default</string>
    </property>
   </action>
-  <action name="actionCOM6">
-   <property name="text">
-    <string>COM6</string>
-   </property>
-  </action>
-  <action name="actionCOM7">
-   <property name="text">
-    <string>更多设置</string>
-   </property>
-  </action>
-  <action name="actionCOM5">
-   <property name="text">
-    <string>COM5</string>
-   </property>
-  </action>
-  <action name="actionCOM4">
-   <property name="text">
-    <string>COM4</string>
-   </property>
-  </action>
   <action name="setting_port">
    <property name="text">
     <string>更多设置</string>
+   </property>
+  </action>
+  <action name="open_file">
+   <property name="text">
+    <string>打开</string>
+   </property>
+  </action>
+  <action name="save_file">
+   <property name="text">
+    <string>保存</string>
    </property>
   </action>
  </widget>
@@ -384,7 +492,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>temp_mea_once</sender>
+   <sender>measure_t_once</sender>
    <signal>clicked()</signal>
    <receiver>temperature</receiver>
    <slot>hide()</slot>
@@ -400,7 +508,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>temp_mea_once</sender>
+   <sender>measure_t_once</sender>
    <signal>clicked()</signal>
    <receiver>humidity</receiver>
    <slot>hide()</slot>
@@ -416,7 +524,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>temp_typein</sender>
+   <sender>typein_t</sender>
    <signal>clicked()</signal>
    <receiver>temperature</receiver>
    <slot>show()</slot>
@@ -432,7 +540,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>temp_typein</sender>
+   <sender>typein_t</sender>
    <signal>clicked()</signal>
    <receiver>humidity</receiver>
    <slot>show()</slot>
@@ -448,7 +556,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>temp_mea_more</sender>
+   <sender>measure_t_repeatedly</sender>
    <signal>clicked()</signal>
    <receiver>temperature</receiver>
    <slot>hide()</slot>
@@ -464,7 +572,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>temp_mea_more</sender>
+   <sender>measure_t_repeatedly</sender>
    <signal>clicked()</signal>
    <receiver>humidity</receiver>
    <slot>hide()</slot>

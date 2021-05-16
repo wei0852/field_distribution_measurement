@@ -6,76 +6,154 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>303</width>
-    <height>390</height>
+    <width>515</width>
+    <height>421</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>设置串口</string>
   </property>
-  <layout class="QFormLayout" name="formLayout">
-   <item row="1" column="1">
-    <widget class="QTextBrowser" name="textBrowser"/>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>温湿度传感器</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QLineEdit" name="com_senser"/>
-   </item>
-   <item row="3" column="1">
-    <widget class="QPushButton" name="apply_sensor">
-     <property name="text">
-      <string>应用并检验</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>步进电机</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="1">
-    <widget class="QLineEdit" name="com_motor"/>
-   </item>
-   <item row="5" column="1">
-    <widget class="QPushButton" name="apply_motor">
-     <property name="text">
-      <string>应用并检验</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>网络分析仪</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="1">
-    <widget class="QLineEdit" name="com_na"/>
-   </item>
-   <item row="7" column="1">
-    <widget class="QPushButton" name="apply_NA">
-     <property name="text">
-      <string>应用并检验</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;如果自动连接串口出错，&lt;/p&gt;&lt;p&gt;可以在此处设置串口，可以在&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&amp;quot;此电脑&amp;gt;属性&amp;gt;设备管理器&amp;quot;&lt;/p&gt;&lt;p&gt;中查看串口，然后在下面填入相应串口&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-    </widget>
-   </item>
-  </layout>
+  <widget class="QTextBrowser" name="textBrowser">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>330</y>
+     <width>151</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>330</y>
+     <width>72</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>温湿度传感器</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="com_senser">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>330</y>
+     <width>171</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="apply_sensor">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>330</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>应用并检验</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>360</y>
+     <width>48</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>步进电机</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="com_motor">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>360</y>
+     <width>171</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="apply_motor">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>360</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>应用并检验</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>390</y>
+     <width>60</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>网络分析仪</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="com_na">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>390</y>
+     <width>171</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="apply_NA">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>390</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>应用并检验</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>9</y>
+     <width>401</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;以下是检测到的串口和仪器：在下方填入相应串口并应用&lt;/p&gt;&lt;p&gt;置空则为自动选择&lt;/p&gt;&lt;p&gt;例如：COM1&lt;/p&gt;&lt;p&gt;USB0::0x0957::0x0D09::MY46110247::INSTR&lt;/p&gt;&lt;p&gt;框内默认值是当前应用的串口(如果有) &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QTextBrowser" name="current_comports">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>491</width>
+     <height>181</height>
+    </rect>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
